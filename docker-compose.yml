@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    container_name: pybox-api
+    ports:
+      - "8080:80"
+    environment:
+      - ENVIRONMENT=dev
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    container_name: pybox-db
+    environment:
+      POSTGRES_DB: pybox
+      POSTGRES_USER: uchenna
+      POSTGRES_PASSWORD: secret123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
